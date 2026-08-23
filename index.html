@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="Aura Yavary — research across multimodal foundation models, reinforcement learning, agents, world models, evaluation, and physical intelligence."/>
+<title>Aura Yavary — Research & Systems</title>
+<style>
+:root{
+  --paper:#f2eee7;
+  --ink:#11110f;
+  --muted:#6d675f;
+  --line:#c9c0b5;
+  --soft:#e8e1d8;
+  --max:1380px;
+  --serif:Baskerville,"Iowan Old Style","Palatino Linotype",Palatino,"Times New Roman",serif;
+  --display:"Didot","Bodoni 72","Bodoni MT",Baskerville,"Times New Roman",serif;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(var(--max),calc(100% - 72px));margin:auto}
+.masthead{padding:18px 0 15px;border-bottom:1px solid var(--ink)}
+.mast{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:22px}
+.micro{font-size:9px;letter-spacing:.19em;text-transform:uppercase;line-height:1.5}
+.micro.right{text-align:right}
+.wordmark{font-family:var(--display);font-size:clamp(42px,6vw,86px);line-height:.76;letter-spacing:-.06em;text-transform:uppercase;font-weight:400}
+nav{border-bottom:1px solid var(--line);padding:10px 0 11px}
+.nav{display:flex;justify-content:center;gap:30px;flex-wrap:wrap}
+.nav a{font-size:9px;text-transform:uppercase;letter-spacing:.17em}
+.nav a:hover{opacity:.55}
+
+.hero{padding:76px 0 54px;border-bottom:1px solid var(--ink)}
+.hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,56%) minmax(0,44%);
+  column-gap:52px;
+  align-items:end;
+  overflow:hidden;
+}
+.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.19em;margin-bottom:25px}
+h1{
+  font-family:var(--display);
+  font-size:clamp(54px,6.9vw,112px);
+  font-weight:400;
+  line-height:.84;
+  letter-spacing:-.052em;
+  text-transform:uppercase;
+  margin:0;
+  width:100%;
+  max-width:100%;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  hyphens:auto;
+}
+.hero-dek{font-family:var(--serif);font-size:clamp(25px,2.6vw,40px);line-height:1.13;letter-spacing:-.024em;max-width:980px;margin:34px 0 0}
+.side{border-top:1px solid var(--ink);padding-top:14px}
+.side-label{font-size:9px;letter-spacing:.17em;text-transform:uppercase;margin-bottom:15px}
+.side-copy{font-family:var(--serif);font-size:22px;line-height:1.28}
+.links{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px}
+.link{font-size:9px;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:3px}
+
+.facts{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--ink)}
+.fact{padding:22px 18px 24px;border-right:1px solid var(--line);min-height:126px}
+.fact:last-child{border-right:none}
+.fact-v{font-family:var(--display);font-size:45px;line-height:.9;letter-spacing:-.045em}
+.fact-l{font-size:9px;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-top:12px;line-height:1.42}
+
+section{padding:82px 0;border-bottom:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:230px minmax(0,1fr);gap:72px}
+.sec{font-size:9px;text-transform:uppercase;letter-spacing:.18em;padding-top:5px}
+h2{font-family:var(--display);font-size:clamp(45px,5.8vw,86px);font-weight:400;line-height:.92;letter-spacing:-.048em;margin:0;max-width:1040px}
+.lead{font-family:var(--serif);font-size:25px;line-height:1.31;max-width:900px;margin:26px 0 0;color:#302c28}
+
+.triad{margin-top:46px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);display:grid;grid-template-columns:repeat(3,1fr)}
+.triad article{padding:30px 26px 34px;border-right:1px solid var(--line)}
+.triad article:last-child{border-right:none}
+.num{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:21px}
+.triad h3{font-family:var(--serif);font-size:31px;line-height:1.02;font-weight:400;margin:0 0 11px}
+.triad p{font-size:13px;line-height:1.67;color:#59534d;margin:0}
+
+.pull{padding:96px 0 104px;background:var(--soft);border-bottom:1px solid var(--ink)}
+.pull p{font-family:var(--display);font-size:clamp(46px,6vw,90px);line-height:.92;letter-spacing:-.053em;max-width:1230px;margin:0}
+.pull .muted{color:#817a72}
+.caption{margin-top:28px;font-size:9px;letter-spacing:.17em;text-transform:uppercase}
+
+.work{margin-top:48px;border-top:1px solid var(--ink)}
+.work-row{display:grid;grid-template-columns:220px minmax(0,1fr);gap:38px;padding:27px 0 30px;border-bottom:1px solid var(--line)}
+.org{font-family:var(--display);font-size:31px;line-height:.96}
+.meta{font-size:8.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-top:8px;line-height:1.45}
+.work-title{font-family:var(--serif);font-size:29px;line-height:1.08;margin-bottom:10px;max-width:860px}
+.copy{font-size:14px;line-height:1.72;color:#4e4942;max-width:920px}
+
+.research-index{margin-top:48px;border-top:1px solid var(--ink)}
+.research-row{display:grid;grid-template-columns:130px 1fr 220px;gap:30px;padding:22px 0;border-bottom:1px solid var(--line);align-items:start}
+.research-year{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.research-title{font-family:var(--serif);font-size:25px;line-height:1.1}
+.research-note{font-size:12px;line-height:1.55;color:#5a554f}
+
+.two{display:grid;grid-template-columns:1fr 1fr;margin-top:46px;border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
+.box{padding:32px 30px 36px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);min-height:210px}
+.box h3{font-family:var(--serif);font-size:31px;font-weight:400;margin:0 0 12px}
+.box p{font-size:13px;line-height:1.68;color:#59534d;margin:0}
+.box .big{font-family:var(--display);font-size:44px;line-height:.95;letter-spacing:-.04em;margin-bottom:15px}
+
+.footer-section{padding:106px 0 122px;text-align:center;border-bottom:0}
+.footer-section h2{margin:0 auto;max-width:1080px;text-transform:uppercase}
+.footer-section p{font-family:var(--serif);font-size:24px;line-height:1.4;max-width:760px;margin:26px auto 0}
+.footer-section .links{justify-content:center;margin-top:34px}
+
+footer{border-top:1px solid var(--ink);padding:20px 0 34px}
+.foot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:8.5px;letter-spacing:.15em;text-transform:uppercase}
+
+@media(max-width:960px){
+ .wrap{width:min(var(--max),calc(100% - 34px))}
+ .mast{grid-template-columns:1fr}.micro,.micro.right,.wordmark{text-align:center}
+ .hero-grid{grid-template-columns:1fr;gap:42px}
+ .facts{grid-template-columns:repeat(2,1fr)}
+ .fact:nth-child(2n){border-right:none}.fact:last-child{grid-column:1/-1;border-top:1px solid var(--line)}
+ .grid{grid-template-columns:1fr;gap:24px}
+ .triad{grid-template-columns:1fr}.triad article{border-right:none;border-bottom:1px solid var(--line)}.triad article:last-child{border-bottom:none}
+ .work-row{grid-template-columns:1fr;gap:12px}
+ .research-row{grid-template-columns:1fr;gap:8px}
+ .two{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+ .hero{padding-top:48px}.nav{gap:14px}.facts{grid-template-columns:1fr}
+ .fact{border-right:none;border-bottom:1px solid var(--line)}.fact:last-child{grid-column:auto;border-bottom:none}
+ section{padding:60px 0}.pull{padding:72px 0}
+}
+
+/* Editorial portrait + extended practice */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(420px,.88fr);gap:56px;align-items:end}
+.hero-copy{padding-bottom:8px}.portrait-frame{height:720px;overflow:hidden;background:#102421}.portrait-frame img{width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block;filter:saturate(.88) contrast(1.02)}
+.hero-bottom{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:1px solid var(--ink);padding:14px 0 16px;margin-top:0}.hero-bottom span,.hero-bottom a{font-size:9px;letter-spacing:.16em;text-transform:uppercase}.hero-bottom .links{margin-top:0}
+.creative-dark{background:#102421;color:#f0ebe3}.creative-dark .sec,.creative-dark .meta{color:#9cafaa}.creative-dark .lead,.creative-dark .copy{color:#c9d2cf}.creative-dark .work,.creative-dark .row{border-color:#465652}.creative-dark .link{border-color:#f0ebe3}
+
+
+.brainfeature{
+  background:#dfe8e3;
+  color:#10201d;
+  border-bottom:1px solid #263a35;
+}
+.brainfeature-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);
+  gap:64px;
+  align-items:start;
+}
+.brainfeature-grid > *{
+  min-width:0;
+}
+.brainfeature-grid > div:first-child{
+  overflow:hidden;
+}
+.brainfeature .sec{color:#61736e}
+.brainfeature-kicker{
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#61736e;
+  margin-bottom:20px;
+}
+.brainfeature-title{
+  font-family:var(--display);
+  font-size:clamp(56px,6.8vw,102px);
+  line-height:.84;
+  letter-spacing:-.055em;
+  text-transform:uppercase;
+  margin:0;
+  width:100%;
+  max-width:100%;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+.brainfeature-sub{
+  font-family:var(--serif);
+  font-size:30px;
+  line-height:1.18;
+  max-width:800px;
+  margin-top:28px;
+}
+.brainfeature-copy{
+  font-size:14px;
+  line-height:1.75;
+  color:#40514d;
+  max-width:800px;
+  margin-top:18px;
+}
+.brainfeature-quote{
+  margin-top:34px;
+  padding-top:22px;
+  border-top:1px solid #263a35;
+  font-family:var(--serif);
+  font-size:27px;
+  line-height:1.22;
+  max-width:820px;
+}
+.brainfeature-links{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-top:30px;
+}
+.brainfeature-links a{
+  font-size:9px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  border-bottom:1px solid #10201d;
+  padding-bottom:3px;
+}
+.brainfeature-panel{border-top:1px solid #263a35}
+.brainfeature-item{
+  padding:18px 0;
+  border-bottom:1px solid #9aa9a4;
+}
+.brainfeature-item .label{
+  font-size:9px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#61736e;
+  margin-bottom:7px;
+}
+.brainfeature-item .value{
+  font-family:var(--serif);
+  font-size:23px;
+  line-height:1.15;
+}
+
+.uac{background:#efe7da;color:#11110f;border-bottom:1px solid var(--ink)}
+.uac-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:64px;align-items:start}
+.uac .sec{color:#776c5f}
+.uac-kicker{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#776c5f;margin-bottom:20px}
+.uac-title{font-family:var(--display);font-size:clamp(58px,7.8vw,118px);line-height:.82;letter-spacing:-.06em;text-transform:uppercase;margin:0}
+.uac-sub{font-family:var(--serif);font-size:30px;line-height:1.18;max-width:800px;margin-top:28px}
+.uac-copy{font-size:14px;line-height:1.75;color:#4e483f;max-width:800px;margin-top:18px}
+.uac-quote{margin-top:34px;padding-top:22px;border-top:1px solid var(--ink);font-family:var(--serif);font-size:27px;line-height:1.22;max-width:820px}
+.uac-links{display:flex;gap:20px;flex-wrap:wrap;margin-top:30px}
+.uac-links a{font-size:9px;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:3px}
+.uac-panel{border-top:1px solid var(--ink)}
+.uac-item{padding:18px 0;border-bottom:1px solid var(--line)}
+.uac-item .label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#776c5f;margin-bottom:7px}
+.uac-item .value{font-family:var(--serif);font-size:23px;line-height:1.15}
+
+.brain{
+  background:#dfe7e2;
+  color:#10201d;
+  border-bottom:1px solid #263b36;
+}
+.brain-feature{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);
+  gap:64px;
+  align-items:start;
+}
+.brain .sec{color:#60726d}
+.brain .brain-kicker{
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#60726d;
+  margin-bottom:20px;
+}
+.brain .brain-title{
+  font-family:var(--display);
+  font-size:clamp(64px,8vw,120px);
+  line-height:.82;
+  letter-spacing:-.06em;
+  text-transform:uppercase;
+  margin:0;
+}
+.brain .brain-sub{
+  font-family:var(--serif);
+  font-size:30px;
+  line-height:1.18;
+  max-width:760px;
+  margin-top:28px;
+}
+.brain .brain-copy{
+  font-size:14px;
+  line-height:1.75;
+  color:#3f514d;
+  max-width:760px;
+  margin-top:18px;
+}
+.brain .brain-links{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-top:30px;
+}
+.brain .brain-links a{
+  font-size:9px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  border-bottom:1px solid #10201d;
+  padding-bottom:3px;
+}
+.brain .brain-panel{
+  border-top:1px solid #263b36;
+}
+.brain .brain-item{
+  padding:18px 0;
+  border-bottom:1px solid #9caaa5;
+}
+.brain .brain-item .label{
+  font-size:9px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#60726d;
+  margin-bottom:7px;
+}
+.brain .brain-item .value{
+  font-family:var(--serif);
+  font-size:24px;
+  line-height:1.12;
+}
+.brain .brain-quote{
+  margin-top:34px;
+  padding-top:22px;
+  border-top:1px solid #263b36;
+  font-family:var(--serif);
+  font-size:26px;
+  line-height:1.22;
+  max-width:780px;
+}
+
+.creative-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:58px}.creative-title{font-family:var(--display);font-size:clamp(58px,7vw,106px);line-height:.82;letter-spacing:-.055em;text-transform:uppercase;margin:20px 0 0}.creative-quote{font-family:var(--serif);font-size:29px;line-height:1.2;max-width:680px;margin-top:28px}.chapters{border-top:1px solid #d7dfdc}.chapter{display:grid;grid-template-columns:48px 1fr;gap:14px;padding:15px 0;border-bottom:1px solid #465652}.chapter-num{font-size:9px;letter-spacing:.15em;color:#9cafaa;padding-top:6px}.chapter-name{font-family:var(--serif);font-size:22px}
+.brain{background:#e8e2d8;border-bottom:1px solid var(--ink)}
+.brain-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:start}
+.brain-main h2{max-width:850px}
+.brain-mark{font-family:var(--display);font-size:clamp(72px,10vw,150px);line-height:.78;letter-spacing:-.06em;text-transform:uppercase;margin-top:26px}
+.brain-kicker{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:22px}
+.brain-copy{font-family:var(--serif);font-size:27px;line-height:1.22;max-width:760px;margin-top:28px}
+.brain-body{font-size:14px;line-height:1.72;color:#4f4a44;max-width:760px;margin-top:18px}
+.brain-link{display:inline-block;font-size:9px;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:3px;margin-top:24px}
+.brain-list{border-top:1px solid var(--ink)}
+.brain-item{padding:18px 0;border-bottom:1px solid var(--line)}
+.brain-item .b-label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.brain-item .b-text{font-family:var(--serif);font-size:23px;line-height:1.1}
+
+.library{display:grid;grid-template-columns:repeat(3,1fr);margin-top:48px;border-top:1px solid var(--ink);border-left:1px solid var(--ink)}.lib{padding:30px 27px 34px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);min-height:245px}.lib .label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}.lib h3{font-family:var(--serif);font-size:30px;font-weight:400;line-height:1.05;margin:0 0 12px}.lib p{font-size:13px;line-height:1.67;color:#5a554f}.lib a{display:inline-block;font-size:9px;letter-spacing:.15em;text-transform:uppercase;border-bottom:1px solid var(--ink);margin-top:18px}
+@media(max-width:960px){.creative-grid,.brain-grid,.brain-feature,.uac-grid,.brainfeature-grid{grid-template-columns:1fr}.portrait-frame{height:620px}.library{grid-template-columns:1fr}.lib{border-right:0}.hero-bottom{align-items:flex-start}}
+@media(max-width:560px){.portrait-frame{height:520px}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap mast">
+    <div class="micro">Research · Systems · Intelligence</div>
+    <div class="wordmark">Aura</div>
+    <div class="micro right">Multimodal AI · Agents · World Models</div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap nav">
+    <a href="#profile">Profile</a>
+    <a href="#work">Work</a>
+    <a href="#research">Research</a>
+    <a href="#community">Community</a><a href="#projects">Projects</a><a href="#creative">Creative</a><a href="#books">Books</a>
+    <a href="https://github.com/SJ9VRF" target="_blank" rel="noreferrer">GitHub</a>
+    <a href="https://scholar.google.com/citations?user=MyHlWIMAAAAJ&hl=en" target="_blank" rel="noreferrer">Scholar</a>
+    <a href="https://drive.google.com/file/d/1hIXM-zT30Wz_0b-QxIxHdMLjGUzbO92L/view?usp=drivesdk" target="_blank" rel="noreferrer">CV</a>
+  </div>
+</nav>
+
+<main>
+
+<section class="hero" id="profile">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">Aura Yavary — Researcher · Systems Builder · Founder · Author</div>
+        <h1>Intelligence, from representation to action.</h1>
+        <p class="hero-dek">Work across multimodal foundation models, reinforcement learning, alignment, agents, world models, robotics, post-training, evaluation, and physical intelligence — connected by a recurring question: what must a system understand in order to act well in the world?</p>
+      </div>
+      <div class="portrait-frame"><img src="assets/aura-portrait.jpeg" alt="Portrait of Aura Yavary"></div>
+    </div>
+    <div class="hero-bottom">
+      <span>Computer Science PhD Candidate · Frontier AI Research & Systems</span>
+      <div class="links"><a class="link" href="https://github.com/SJ9VRF" target="_blank">GitHub ↗</a><a class="link" href="https://scholar.google.com/citations?user=MyHlWIMAAAAJ&hl=en" target="_blank">Scholar ↗</a><a class="link" href="https://drive.google.com/file/d/1hIXM-zT30Wz_0b-QxIxHdMLjGUzbO92L/view?usp=drivesdk" target="_blank">CV ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap facts">
+  <div class="fact"><div class="fact-v">3</div><div class="fact-l">Patents</div></div>
+  <div class="fact"><div class="fact-v">10</div><div class="fact-l">Technical innovation disclosures</div></div>
+  <div class="fact"><div class="fact-v">20+</div><div class="fact-l">Researchers & engineers led</div></div>
+  <div class="fact"><div class="fact-v">NeurIPS</div><div class="fact-l">Spotlight</div></div>
+  <div class="fact"><div class="fact-v">0→1→Prod</div><div class="fact-l">Research to deployment</div></div>
+</div>
+
+<section>
+  <div class="wrap grid">
+    <div class="sec">01 — Profile</div>
+    <div>
+      <h2>A practice that connects model learning, agency, and deployment.</h2>
+      <p class="lead">
+        The work spans several layers that are often separated: learning and alignment at the model level,
+        reasoning and action at the agent level, representation and planning at the world-model level,
+        and the experimentation and engineering required to make these systems function outside a research prototype.
+      </p>
+      <div class="triad">
+        <article><div class="num">I</div><h3>Model learning</h3><p>Reinforcement learning, RLHF, self-play, distillation, representation learning, multimodal alignment, and post-training.</p></article>
+        <article><div class="num">II</div><h3>Agency</h3><p>Computer use, long-horizon reasoning, autonomous UI navigation, tool interaction, multi-agent learning, and VLA systems.</p></article>
+        <article><div class="num">III</div><h3>World interaction</h3><p>World models, 3D reasoning, robot learning, simulation, physical intelligence, evaluation, and sim-to-real.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pull">
+  <div class="wrap">
+    <p>
+      The same question appears across the work:
+      <span class="muted">what does a model need to know in order to act well?</span>
+    </p>
+    <div class="caption">Across software environments, multimodal systems, robotics, and autonomous interaction</div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap grid">
+    <div class="sec">02 — Selected work</div>
+    <div>
+      <h2>Research and systems work across six environments.</h2>
+      <div class="work">
+        <article class="work-row"><div><div class="org">Google</div><div class="meta">Agentic foundation models · RL · autonomous commerce</div></div><div><div class="work-title">Frontier Agentic Foundation Models for Autonomous Commerce</div><div class="copy">Led a multidisciplinary team of approximately 20 researchers and engineers taking a multimodal agentic Ads system from concept to production. Work included reinforcement learning, teacher–student distillation, Gemini-based architectures, RLHF, experimentation, and deployment, contributing to 3 patents and 10 technical innovation disclosures.</div></div></article>
+        <article class="work-row"><div><div class="org">Amazon</div><div class="meta">Applied Scientist · Rufus</div></div><div><div class="work-title">Multimodal Foundation Models at Consumer Scale</div><div class="copy">Worked on multimodal foundation-model training and evaluation, representation learning, scaling, and multimodal recommendation for large-scale customer-facing AI experiences.</div></div></article>
+        <article class="work-row"><div><div class="org">Microsoft</div><div class="meta">Applied Scientist II · agents · world models · VLA</div></div><div><div class="work-title">Autonomous Software Agents and World-Model-Based Interaction</div><div class="copy">Developed vision-language-action foundation models, world models, reinforcement-learning and self-play systems for agents interacting with real software environments, including multimodal reasoning, autonomous UI navigation, and 3D generative pipelines.</div></div></article>
+        <article class="work-row"><div><div class="org">Mercedes-Benz R&D</div><div class="meta">Embodied AI · autonomous driving</div></div><div><div class="work-title">Physical Intelligence for Long-Horizon Interaction</div><div class="copy">Worked on world modeling, multimodal embodied AI, VLA architectures, generative simulation, long-horizon planning, action tokenization, spatial reasoning, RAG, and reducing the sim-to-real gap.</div></div></article>
+        <article class="work-row"><div><div class="org">UC Berkeley</div><div class="meta">Visiting PhD Researcher</div></div><div><div class="work-title">Multimodal Foundation Models & Multi-Agent Learning</div><div class="copy">Research on multimodal alignment, multi-agent systems, reinforcement learning, multimodal foundation models, and reward transfer across tasks and dynamics.</div></div></article>
+        <article class="work-row"><div><div class="org">Stanford</div><div class="meta">DROID · embodied AI & robot learning</div></div><div><div class="work-title">Large-Scale In-the-Wild Robot Data for Generalization</div><div class="copy">Contributed to DROID, including point-cloud alignment, data conversion, and language annotation embeddings for broad robot generalization.</div></div></article>
+        <article class="work-row"><div><div class="org">California Transportation</div><div class="meta">Computer vision · public safety</div></div><div><div class="work-title">Deployment-Relevant Vision Systems</div><div class="copy">Built machine-learning systems for ADA ramp compliance and highway safety using point clouds, image processing, vehicle detection, license-plate recognition, make-and-model recognition, and targeted warning generation.</div></div></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap grid">
+    <div class="sec">03 — PhD & research</div>
+    <div>
+      <h2>Multimodal decision-making through learned world representations.</h2>
+      <p class="lead">
+        PhD research at UC Davis focuses on generalizable multimodal foundation models across vision,
+        language, 3D, and action, with emphasis on world modeling, long-horizon reasoning,
+        robot learning, multimodal alignment, retrieval, and reinforcement learning.
+      </p>
+
+      <div class="research-index">
+        <div class="research-row"><div class="research-year">Selected</div><div class="research-title">HealthAlign-Agents</div><div class="research-note">Reflective self-play for culturally safe health communication in low-resource languages · NeurIPS Spotlight.</div></div>
+        <div class="research-row"><div class="research-year">Embodied AI</div><div class="research-title">DROID / Open X-Embodiment / RT-X</div><div class="research-note">Large-scale robot interaction, data alignment, multimodal action learning, and generalization.</div></div>
+        <div class="research-row"><div class="research-year">Multimodality</div><div class="research-title">WorldBind</div><div class="research-note">Work on multimodal binding and aligned representations across heterogeneous modalities.</div></div>
+        <div class="research-row"><div class="research-year">Reasoning</div><div class="research-title">Video reasoning & action-aligned perception</div><div class="research-note">Research connecting multimodal perception with temporally extended reasoning and action.</div></div>
+        <div class="research-row"><div class="research-year">World models</div><div class="research-title">Generative models for prediction and decision-making</div><div class="research-note">World-modeling research spanning simulation, planning, multimodal state representations, and agent behavior.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap grid">
+    <div class="sec">04 — Research to production</div>
+    <div>
+      <h2>Formulation, modeling, evaluation, deployment.</h2>
+      <p class="lead">
+        The operating pattern is end to end: define the problem, build the learning system,
+        establish how improvement should be measured, and carry successful ideas into real environments.
+      </p>
+      <div class="two">
+        <article class="box"><div class="big">Research formulation</div><p>Frame underdefined technical questions and connect them to measurable model behavior.</p></article>
+        <article class="box"><div class="big">Model development</div><p>Work across multimodal modeling, RL, self-play, distillation, alignment, agents, and world models.</p></article>
+        <article class="box"><div class="big">Evaluation</div><p>Turn broad capability claims into experiments, metrics, reward signals, and behavioral evidence.</p></article>
+        <article class="box"><div class="big">Deployment</div><p>Translate successful research into production systems and multidisciplinary execution.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="community">
+  <div class="wrap grid">
+    <div class="sec">05 — Community & recognition</div>
+    <div>
+      <h2>Research credibility beyond a single institution.</h2>
+      <div class="two">
+        <article class="box"><h3>NeurIPS + ICML</h3><p>Reviewer and research community service across frontier machine learning and AI.</p></article>
+        <article class="box"><h3>NeurIPS Spotlight</h3><p>HealthAlign-Agents selected for a Spotlight presentation.</p></article>
+        <article class="box"><h3>Speaking</h3><p>Speaker at Ai4 2026 on The State of Computer Vision and at AI in Production on production-scale AI systems.</p></article>
+        <article class="box"><h3>Additional recognition</h3><p>Recognition spanning robotics, machine learning, research competitions, and technical communities, including ICRA, ACM, AAAI/NeurIPS travel awards, and autonomous-systems challenges.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap grid">
+    <div class="sec">06 — Applied systems & ventures</div>
+    <div>
+      <h2>Research is one part of a broader building practice.</h2>
+      <p class="lead">
+        Work outside the lab includes entrepreneurship, technical communication, and applied AI systems:
+        author of the AIComics series, Stanford technology entrepreneurship,
+        prior ventures, and applied work spanning insurance and AI governance.
+      </p>
+      <div class="work">
+        <article class="work-row"><div><div class="org">BrainButton™</div><div class="meta">Founder & CEO</div></div><div><div class="work-title">Brain Fitness & Cognitive Performance Platform</div><div class="copy">Building a platform focused on brain fitness and cognitive performance.</div></div></article>
+        <article class="work-row"><div><div class="org">Stanford</div><div class="meta">Technology entrepreneurship</div></div><div><div class="work-title">AI Entrepreneurship & Venture Building</div><div class="copy">Developed a generative-AI startup concept and led an international team spanning entrepreneurship, investment, software, and machine learning.</div></div></article>
+        <article class="work-row"><div><div class="org">Munich Re</div><div class="meta">Applied AI · governance</div></div><div><div class="work-title">AI in High-Stakes Industry Contexts</div><div class="copy">Experience connecting machine-learning systems with governance, operational constraints, and real-world risk considerations.</div></div></article>
+        <article class="work-row"><div><div class="org">AIComics</div><div class="meta">Author</div></div><div><div class="work-title">Technical ideas, made legible</div><div class="copy">Published visual storytelling work translating advanced AI concepts including multimodal systems, agents, world models, and reinforcement learning.</div></div></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pull">
+  <div class="wrap">
+    <p>
+      A career built around one technical transition:
+      <span class="muted">from representation to reasoning, and from reasoning to action.</span>
+    </p>
+    <div class="caption">Research · systems · agents · embodied intelligence</div>
+  </div>
+</section>
+
+
+<section id="projects">
+  <div class="wrap grid">
+    <div class="sec">07 — Selected systems</div>
+    <div>
+      <h2>Research ideas carried into working system concepts.</h2>
+      <div class="work">
+        <article class="work-row"><div><div class="org">Sentinel Alignment Lab</div><div class="meta">Alignment · evaluator agents · robustness</div></div><div><div class="work-title">Structured evaluation of advanced multimodal agents</div><div class="copy">A research-driven framework for failure-mode discovery, goal drift, reflective self-correction, evaluator agents, tool use, and multi-agent oversight.</div></div></article>
+        <article class="work-row"><div><div class="org">Embodied Alignment WorldMaker</div><div class="meta">World models · multi-agent RL</div></div><div><div class="work-title">Alignment inside shared worlds</div><div class="copy">A multimodal world-model environment for studying coordination, competition, goal coherence, and decision reliability across autonomous agents.</div></div></article>
+        <article class="work-row"><div><div class="org">ActPix2Pix</div><div class="meta">Vision · action · language</div></div><div><div class="work-title">Action-aligned multimodal generation</div><div class="copy">Combines vision-action-language modeling, foundation models, and reinforcement learning for scene synthesis, dynamics learning, and decision optimization.</div></div></article>
+        <article class="work-row"><div><div class="org">TransReward</div><div class="meta">Reinforcement learning · transfer</div></div><div><div class="work-title">Reward transfer across robots and tasks</div><div class="copy">Explores scalable policy adaptation through reward compensation across changing tasks, dynamics, morphologies, and resource constraints.</div></div></article>
+        <article class="work-row"><div><div class="org">OpenAI Hackathon Work</div><div class="meta">Reasoning · coding · multimodality · automation</div></div><div><div class="work-title">Certify & OperAI</div><div class="copy">Applications spanning multimodal fact-checking, planning, reinforcement learning, productivity-oriented task management, tool calling, RAG, and multi-agent orchestration.</div></div></article>
+      </div>
+      <div class="links" style="margin-top:28px"><a class="link" href="https://sj9vrf.github.io/aura.github.io/projects.html" target="_blank">Explore full project archive ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="creative-dark" id="creative">
+  <div class="wrap creative-grid">
+    <div>
+      <div class="sec">08 — Creative systems</div>
+      <h2>AETHERLUX</h2>
+      <div style="border-top:1px solid #d7dfdc;margin-top:40px;padding-top:24px">
+        <div class="meta">Collection 01 · Human Freedom</div>
+        <div class="creative-title">The Cage</div>
+        <div class="creative-quote">“Before freedom can be worn, constraint must become visible.”</div>
+        <div class="copy" style="margin-top:18px">Aetherlux is a futuristic fashion house exploring autonomy, human identity, technology, and the future of dress. Its first collection turns invisible systems of restraint into visible structure — another medium for questions about agency, constraint, and self-authorship.</div>
+        <a class="link" style="display:inline-block;margin-top:22px" href="https://aetherlux-aifashionhouse.github.io/FashionHouse/" target="_blank">Enter Aetherlux ↗</a>
+      </div>
+    </div>
+    <div>
+      <div class="chapters">
+        <div class="chapter"><div class="chapter-num">01</div><div class="chapter-name">The Cage</div></div>
+        <div class="chapter"><div class="chapter-num">02</div><div class="chapter-name">Awakening</div></div>
+        <div class="chapter"><div class="chapter-num">03</div><div class="chapter-name">Breaking Form</div></div>
+        <div class="chapter"><div class="chapter-num">04</div><div class="chapter-name">Liberation</div></div>
+        <div class="chapter"><div class="chapter-num">05</div><div class="chapter-name">Human / Machine</div></div>
+        <div class="chapter"><div class="chapter-num">06</div><div class="chapter-name">The Free Human</div></div>
+      </div>
+      <p class="copy" style="margin-top:26px">Technology × Humanity × Freedom. A parallel creative practice treating design as another way to investigate autonomy, identity, systems, and human agency.</p>
+    </div>
+  </div>
+</section>
+
+<section id="books">
+  <div class="wrap grid">
+    <div class="sec">09 — Books, art & public work</div>
+    <div>
+      <h2>Technical ideas, translated into narrative and form.</h2>
+      <p class="lead">A parallel practice in writing, visual explanation, generative art, entrepreneurship, and scientific storytelling.</p>
+      <div class="library">
+        <article class="lib"><div class="label">Book · Transformers</div><h3>Transformers to Tomorrow</h3><p>A visual journey through attention, transformers, and the ideas that reshaped modern AI.</p><a href="https://sj9vrf.github.io/aura.github.io/books.html" target="_blank">Explore ↗</a></article>
+        <article class="lib"><div class="label">Book · Diffusion</div><h3>From Noise to Pictures</h3><p>A narrative explanation of diffusion models and the emergence of structured images from noise.</p><a href="https://sj9vrf.github.io/aura.github.io/books.html" target="_blank">Explore ↗</a></article>
+        <article class="lib"><div class="label">Book · Reinforcement Learning</div><h3>Reinforcement</h3><p>A story-driven introduction to agents learning through interaction, rewards, and sequential decisions.</p><a href="https://sj9vrf.github.io/aura.github.io/books.html" target="_blank">Explore ↗</a></article>
+        <article class="lib"><div class="label">AI Art · Dreamlight</div><h3>Dreams as latent worlds</h3><p>A generative-art project exploring emotion, memory, symbolism, ambiguity, and cinematic visual narrative.</p><a href="https://sj9vrf.github.io/aura.github.io/ai-arts.html" target="_blank">Explore ↗</a></article>
+        <article class="lib"><div class="label">Venture · BrainButton™</div><h3>Brain fitness & cognitive performance</h3><p>A platform focused on brain fitness and cognitive performance.</p><a href="https://brainbuttonai.github.io/brainbutton" target="_blank">brainbuttonai.github.io/brainbutton ↗</a></article>
+        <article class="lib"><div class="label">Speaking · Public technical work</div><h3>Ai4 2026 · AI in Production</h3><p>Public work across computer vision, multimodal AI, agents, world models, physical intelligence, and production-scale machine learning.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="footer-section">
+  <div class="wrap">
+    <div class="micro">Aura Yavary · Research & Systems</div>
+    <h2>Multimodal learning, agency, and world interaction.</h2>
+    <p>Foundation models · reinforcement learning · agents · post-training · evaluation · world models · computer use · physical intelligence.</p>
+    <div class="links">
+      <a class="link" href="https://drive.google.com/file/d/1hIXM-zT30Wz_0b-QxIxHdMLjGUzbO92L/view?usp=drivesdk" target="_blank" rel="noreferrer">Curriculum Vitae ↗</a>
+      <a class="link" href="https://github.com/SJ9VRF" target="_blank" rel="noreferrer">GitHub ↗</a>
+      <a class="link" href="https://scholar.google.com/citations?user=MyHlWIMAAAAJ&hl=en" target="_blank" rel="noreferrer">Google Scholar ↗</a>
+      <a class="link" href="https://brainbuttonai.github.io/brainbutton" target="_blank" rel="noreferrer">BrainButton™ ↗</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>© 2026 Aura Yavary</div>
+    <div>Multimodal AI · Reinforcement Learning · Agents · World Models</div>
+  </div>
+</footer>
+
+</body>
+</html>
+<section class="uac" id="united-ai-civilization">
+  <div class="wrap">
+    <div class="uac-grid">
+      <div>
+        <div class="sec">08 — United AI Civilization</div>
+        <div class="uac-kicker">Founder · Public-Interest Initiative · YCIT-6</div>
+        <h2 class="uac-title">United AI Civilization</h2>
+        <div class="uac-sub">
+          A global initiative examining what happens when increasingly capable AI systems move from tools to active participants in economic, institutional, and physical systems.
+        </div>
+        <div class="uac-copy">
+          United AI Civilization connects frontier technical shifts — agents, multimodality, world models, reinforcement learning, and physical intelligence —
+          with questions of human agency, institutional design, shared prosperity, and international coordination.
+          The initiative develops a structured framework for reasoning from model capability to civilization-scale consequence, rather than treating AI governance as a layer separate from the technology itself.
+        </div>
+        <div class="uac-quote">
+          The question is no longer only how to build better AI, but what institutions, norms, and coordination mechanisms are needed as intelligence becomes increasingly autonomous and embedded in the world.
+        </div>
+        <div class="uac-links">
+          <a href="https://united-ai-civilization.github.io/UnitedAICivilization/" target="_blank" rel="noreferrer">Explore the initiative ↗</a>
+        </div>
+      </div>
+      <aside class="uac-panel">
+        <div class="uac-item"><div class="label">Framework</div><div class="value">YCIT-6 — Capability · Agency · World · Institutions · Coordination · Civilization</div></div>
+        <div class="uac-item"><div class="label">Technical foundation</div><div class="value">Agents · world models · multimodal AI · physical intelligence</div></div>
+        <div class="uac-item"><div class="label">Public-interest lens</div><div class="value">Human agency · institutions · shared prosperity · global coordination</div></div>
+        <div class="uac-item"><div class="label">Output</div><div class="value">Framework · speaker case · book-length treatment · public dialogue</div></div>
+        <div class="uac-item"><div class="label">Website</div><div class="value">united-ai-civilization.github.io/UnitedAICivilization</div></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+
+<section class="brainfeature" id="brainbutton">
+  <div class="wrap">
+    <div class="brainfeature-grid">
+      <div>
+        <div class="sec">09 — BrainButton™</div>
+        <div class="brainfeature-kicker">Founder & CEO · The World's First Brain Fitness Club</div>
+        <h2 class="brainfeature-title">BrainButton™</h2>
+
+        <div class="brainfeature-sub">
+          A daily brain-fitness system that translates neuroscience, cognition, and behavioral science into short, practical activations for focus, memory, creativity, and cognitive performance.
+        </div>
+
+        <div class="brainfeature-copy">
+          BrainButton™ is built around a simple product idea: people do not need more information about how the mind works;
+          they need a repeatable way to act on the right insight at the right moment.
+          The platform turns science into compact daily rituals, tracks the patterns that work for each person,
+          and develops a personal library of cognitive tools that can be reused in real life.
+        </div>
+
+        <div class="brainfeature-quote">
+          One insight. One activation. One intentional step toward a stronger, more self-directed mind.
+        </div>
+
+        <div class="brainfeature-links">
+          <a href="https://brainbuttonai.github.io/brainbutton/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZnRzaAT4ZkxwZG9mAmZkaWQWUNABRoth3lnFFLdq6CxfvYili6rNp2V4dG4DYWVtAjExAHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp_mY2bMVUQzMTRx745pQOosgbKKzQVUHEfMI6EGMdj7OlP2MJ2hcB12BWfT9_aem_QYfb_lQw9lf1Son_Hx0_Xg" target="_blank" rel="noreferrer">
+            Website · BrainButton ↗
+          </a>
+          <a href="https://www.instagram.com/brain__button?igsi=MWczN3Y1eTd1eWd1aA%3D%3D&utm_source=qr" target="_blank" rel="noreferrer">
+            Instagram · @brain__button ↗
+          </a>
+        </div>
+      </div>
+
+      <aside class="brainfeature-panel">
+        <div class="brainfeature-item">
+          <div class="label">Category</div>
+          <div class="value">Brain fitness & cognitive performance</div>
+        </div>
+        <div class="brainfeature-item">
+          <div class="label">Method</div>
+          <div class="value">Press → Activate → Adapt</div>
+        </div>
+        <div class="brainfeature-item">
+          <div class="label">Daily format</div>
+          <div class="value">Science-backed insight · practical activation · repeatable cognitive tool</div>
+        </div>
+        <div class="brainfeature-item">
+          <div class="label">Training areas</div>
+          <div class="value">Focus · memory · creativity · cognitive reset · decision-making</div>
+        </div>
+        <div class="brainfeature-item">
+          <div class="label">Website</div>
+          <div class="value">brainbuttonai.github.io/brainbutton</div>
+        </div>
+        <div class="brainfeature-item">
+          <div class="label">Instagram</div>
+          <div class="value">@brain__button</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+
+
